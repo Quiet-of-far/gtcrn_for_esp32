@@ -1,0 +1,51 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Native and packaging outputs
+build/
+build_*/
+dist/
+*.o
+*.so
+*.a
+*.out
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Training and evaluation runs
+experiments/
+runs/
+logs/
+events.out.tfevents.*
+
+# Generated inference and deployment artifacts
+deploy_rknn/
+*.rknn
+stream/onnx_models/*_4d*.onnx
+cpp_gtcrn/gtcrn_ref_*.bin
+cpp_gtcrn/webui/offline/
+cpp_gtcrn/webui/runs/
+
+# Expanded checkpoints and local application bundles
+checkpoints/model_trained_on_dns3/
+*.spec
+
+# Editor and operating-system files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

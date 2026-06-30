@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GTCRN C++ 实时降噪</title>
+    <link rel="stylesheet" href="/styles.css?v=20260615-1" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>GTCRN C++ 实时降噪</h1>
+          <p>板端麦克风与扬声器 · DNS3 float32 纯 C++ 推理</p>
+        </div>
+        <span id="state" class="state">未启动</span>
+      </header>
+
+      <section class="panel">
+        <label class="model-field" for="modelSelect">
+          <span>推理模型</span>
+          <select id="modelSelect"></select>
+        </label>
+        <div class="device-grid">
+          <label for="captureSelect">
+            <span>麦克风</span>
+            <select id="captureSelect"></select>
+          </label>
+          <label for="playbackSelect">
+            <span>扬声器</span>
+            <select id="playbackSelect"></select>
+          </label>
+        </div>
+        <div class="actions device-actions">
+          <button id="applyDevicesBtn">应用音频设备</button>
+          <button id="refreshDevicesBtn" title="重新扫描板端 ALSA 音频设备">刷新设备</button>
+        </div>
+        <div class="actions">
+          <button class="primary" id="startBtn">启动实时降噪</button>
+          <button id="stopBtn" disabled>停止</button>
+        </div>
+
+        <section class="recording">
+          <div class="section-head">
+            <h2>实时录音试听</h2>
+            <span id="recordState">未录音</span>
+          </div>
+          <div class="actions compact">
+            <button id="recordStartBtn">开始录音</button>
+            <button id="recordStopBtn" disabled>停止录音</button>
+          </div>
+          <div class="players">
+            <div>
+              <label for="inputAudio">麦克风原始输入</label>
+              <audio id="inputAudio" controls preload="none"></audio>
+              <a id="inputDownload" href="#" download hidden>下载输入 WAV</a>
+            </div>
+            <div>
+              <label for="outputAudio">降噪后输出</label>
+              <audio id="outputAudio" controls preload="none"></audio>
+              <a id="outputDownload" href="#" download hidden>下载输出 WAV</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="offline">
+          <div class="section-head">
+            <h2>上传离线音频</h2>
+            <span id="offlineState">未处理</span>
+          </div>
+          <form id="offlineForm" class="upload-form">
+            <input id="offlineFile" name="audio" type="file" accept="audio/wav,.wav" />
+            <button id="offlineBtn" type="submit">上传并按流式推理</button>
+          </form>
+          <div class="players">
+            <div>
+              <label for="offlineInputAudio">上传输入</label>
+              <audio id="offlineInputAudio" controls preload="none"></audio>
+              <a id="offlineInputDownload" href="#" download hidden>下载输入 WAV</a>
+            </div>
+            <div>
+              <label for="offlineOutputAudio">流式降噪输出</label>
+              <audio id="offlineOutputAudio" controls preload="none"></audio>
+              <a id="offlineOutputDownload" href="#" download hidden>下载输出 WAV</a>
+            </div>
+          </div>
+        </section>
+
+        <dl class="config">
+          <div><dt>模型</dt><dd id="model">--</dd></div>
+          <div><dt>采集设备</dt><dd id="capture">--</dd></div>
+          <div><dt>播放设备</dt><dd id="playback">--</dd></div>
+          <div><dt>缓冲</dt><dd id="buffer">--</dd></div>
+          <div><dt>帧数</dt><dd id="frames">--</dd></div>
+        </dl>
+
+        <section class="log-section">
+          <div class="section-head">
+            <h2>推理延迟输出</h2>
+          </div>
+          <pre id="log" class="log"></pre>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js?v=20260615-1"></script>
+  </body>
+</html>
